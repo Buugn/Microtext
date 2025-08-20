@@ -148,4 +148,4 @@ emotionLIB = [
 for (let index = 0; index <= 25; index++) {
     letterLIB[index] = index + 97
 }
-music.setVolume(4)
+music.setVolume(34)
