@@ -1,3 +1,6 @@
+function playSound () {
+    music.play(music.tonePlayable(528, music.beat(BeatFraction.Sixteenth)), music.PlaybackMode.UntilDone)
+}
 input.onButtonPressed(Button.A, function () {
     if (mode == 0) {
         emotion += 1
@@ -8,11 +11,7 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onButtonPressed(Button.AB, function () {
-    if (mode == 0) {
-        mode = 1
-    } else {
-        mode = 0
-    }
+    switchModes()
 })
 input.onButtonPressed(Button.B, function () {
     if (mode == 0) {
@@ -24,7 +23,7 @@ input.onButtonPressed(Button.B, function () {
     }
 })
 radio.onReceivedValue(function (name, value) {
-    music.play(music.createSoundExpression(WaveShape.Square, 666, 1, 77, 0, 100, SoundExpressionEffect.Warble, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+    playSound()
     displayFunction(name, value)
 })
 function testEmotion () {
@@ -52,7 +51,7 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
             radio.sendValue(String.fromCharCode(letterLIB[letter % letterLIB.length]), 3)
         }
     }
-    music.play(music.createSoundExpression(WaveShape.Square, 666, 1, 77, 0, 100, SoundExpressionEffect.Warble, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+    playSound()
 })
 function testLetter () {
     if (0 > letter) {
@@ -63,6 +62,13 @@ function testLetter () {
     basic.pause(100)
     if (0 > letter) {
         basic.clearScreen()
+    }
+}
+function switchModes () {
+    if (mode == 0) {
+        mode = 1
+    } else {
+        mode = 0
     }
 }
 input.onLogoEvent(TouchButtonEvent.Released, function () {
@@ -142,3 +148,4 @@ emotionLIB = [
 for (let index = 0; index <= 25; index++) {
     letterLIB[index] = index + 97
 }
+music.setVolume(4)
